@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProdukRasyaXD</title>
+    <title>ProdukRasyaStore</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Variabel CSS untuk konsistensi tema */
@@ -48,12 +48,40 @@
             text-align: center;
             position: relative;
             padding: 60px 20px;
+            overflow: hidden;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://files.catbox.moe/elq77w.png') center/cover no-repeat fixed;
         }
 
         .welcome-content {
             max-width: 800px;
             z-index: 2;
             position: relative;
+        }
+
+        .logo-container {
+            margin-bottom: 30px;
+            animation: logoFloat 3s ease-in-out infinite alternate;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 0 30px rgba(255, 87, 34, 0.6);
+            background: white;
+            padding: 5px;
+        }
+
+        @keyframes logoFloat {
+            0% {
+                transform: translateY(0px);
+            }
+            100% {
+                transform: translateY(-10px);
+            }
         }
 
         .welcome-title {
@@ -104,6 +132,8 @@
             align-items: center;
             gap: 10px;
             text-decoration: none;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
@@ -133,11 +163,47 @@
             color: white;
         }
 
+        /* Floating particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 87, 34, 0.6);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
         /* Section Produk */
         .products-section {
             min-height: 100vh;
             padding: 80px 20px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                        url('https://files.catbox.moe/elq77w.png') center/cover fixed;
             display: none;
         }
 
@@ -239,6 +305,8 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .product-card::before {
@@ -347,6 +415,8 @@
             margin-top: 40px;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .contact-section::before {
@@ -413,6 +483,8 @@
             color: white;
             font-size: 14px;
             animation: pulse 2s infinite;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         @keyframes pulse {
@@ -491,6 +563,11 @@
                 font-size: 12px;
                 padding: 8px 12px;
             }
+
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
         }
 
         /* Animasi untuk kartu produk */
@@ -543,6 +620,8 @@
             max-width: 500px;
             width: 90%;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .modal h3 {
@@ -606,9 +685,38 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(255, 87, 34, 0.6);
         }
+
+        /* Loading screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0f0f 0%, #2a2a2a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(255, 87, 34, 0.3);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
     <!-- Indikator Musik -->
     <div class="music-indicator">
         <i class="fas fa-music music-icon"></i>
@@ -617,8 +725,12 @@
 
     <!-- Section Welcome -->
     <section class="welcome-section">
+        <div class="particles" id="particles"></div>
         <div class="welcome-content">
-            <h1 class="welcome-title">Welcome Di Website RasyaXD</h1>
+            <div class="logo-container">
+                <img src="https://files.catbox.moe/elq77w.png" alt="RasyaXD Logo" class="logo">
+            </div>
+            <h1 class="welcome-title">Welcome Di Website Payment RasyaXD</h1>
             <p class="welcome-subtitle">
             </p>
             <div class="welcome-buttons">
@@ -669,25 +781,25 @@
                     </ul>
                     <div class="product-footer">
                         <span class="product-price">Mulai 4K</span>
-                           <button class="btn-order" data-product="Panel Bot WhatsApp">
+                        <button class="btn-order" data-product="Panel Bot WhatsApp">
                             <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
                         </button>
                     </div>
                 </div>
 
                 <!-- Likes Instagram -->
-                                <div class="product-card" data-category="sosmed">
+                <div class="product-card" data-category="sosmed">
                     <div class="product-header">
                         <h3 class="product-title">Likes Instagram</h3>
                         <p class="product-description">Tingkatkan engagement Instagram Anda</p>
                     </div>
                     <ul class="product-features">
-                        <li>100 Like = 2k</li>
-                        <li>200 Like = 3k</li>
-                        <li>300 Like = 4k</li>
-                        <li>400 Like = 5k</li>
-                        <li>500 Like = 6k</li>
-                        <li>1000 Like = 11k</li>
+                        <li>100 Like = Rp 2.000</li>
+                        <li>200 Like = Rp 3.000</li>
+                        <li>300 Like = Rp 4.000</li>
+                        <li>400 Like = Rp 5.000</li>
+                        <li>500 Like = Rp 6.000</li>
+                        <li>1000 Like = Rp 11.000</li>
                     </ul>
                     <div class="product-footer">
                         <span class="product-price">Mulai 2K</span>
@@ -704,11 +816,11 @@
                         <p class="product-description">Tingkatkan views pada konten Instagram Anda</p>
                     </div>
                     <ul class="product-features">
-                        <li>1000 View = 2k</li>
-                        <li>2000 View = 3k</li>
-                        <li>3000 View = 4k</li>
-                        <li>5000 View = 5k</li>
-                        <li>10000 View = 11K</li>
+                        <li>1000 View = Rp 2.000</li>
+                        <li>2000 View = Rp 3.000</li>
+                        <li>3000 View = Rp 4.000</li>
+                        <li>5000 View = Rp 5.000</li>
+                        <li>10000 View = Rp 11.000</li>
                     </ul>
                     <div class="product-footer">
                         <span class="product-price">Mulai 2K</span>
@@ -725,12 +837,12 @@
                         <p class="product-description">Tingkatkan jumlah followers Instagram Anda</p>
                     </div>
                     <ul class="product-features">
-                        <li>100 Foll = 3K</li>
-                        <li>200 Foll = 6K</li>
-                        <li>300 Foll = 9K</li>
-                        <li>400 Foll = 11K</li>
-                        <li>500 Foll = 14K</li>
-                        <li>1000 Foll = 25K</li>
+                        <li>100 Foll = Rp 3.000</li>
+                        <li>200 Foll = Rp 6.000</li>
+                        <li>300 Foll = Rp 9.000</li>
+                        <li>400 Foll = Rp 11.000</li>
+                        <li>500 Foll = Rp 14.500</li>
+                        <li>1000 Foll = Rp 25.000</li>
                     </ul>
                     <div class="product-footer">
                         <span class="product-price">Mulai 3K</span>
@@ -747,12 +859,12 @@
                         <p class="product-description">Tingkatkan likes pada konten TikTok Anda</p>
                     </div>
                     <ul class="product-features">
-                        <li>100 Like = 3K</li>
-                        <li>200 Like = 5K</li>
-                        <li>300 Like = 7K</li>
-                        <li>400 Like = 9K</li>
-                        <li>500 Like = 11K</li>
-                        <li>1000 Like = 20K</li>
+                        <li>100 Like = Rp 3.000</li>
+                        <li>200 Like = Rp 5.000</li>
+                        <li>300 Like = Rp 7.000</li>
+                        <li>400 Like = Rp 9.000</li>
+                        <li>500 Like = Rp 11.000</li>
+                        <li>1000 Like = Rp 20.000</li>
                     </ul>
                     <div class="product-footer">
                         <span class="product-price">Mulai 3K</span>
@@ -769,11 +881,11 @@
                         <p class="product-description">Tingkatkan views pada konten TikTok Anda</p>
                     </div>
                     <ul class="product-features">
-                        <li>10000 View = 2K</li>
-                        <li>20000 View = 3K</li>
-                        <li>30000 View = 4K</li>
-                        <li>50000 View = 6K</li>
-                        <li>100000 View = 11K</li>
+                        <li>10000 View = Rp 2.000</li>
+                        <li>20000 View = Rp 3.000</li>
+                        <li>30000 View = Rp 4.000</li>
+                        <li>50000 View = Rp 6.000</li>
+                        <li>100000 View = Rp 11.000</li>
                     </ul>
                     <div class="product-footer">
                         <span class="product-price">Mulai 2K</span>
@@ -790,12 +902,12 @@
                         <p class="product-description">Tingkatkan jumlah followers TikTok Anda</p>
                     </div>
                     <ul class="product-features">
-                        <li>100 Foll = 4K</li>
-                        <li>200 Foll = 8K</li>
-                        <li>300 Foll = 11K</li>
-                        <li>400 Foll = 13K</li>
-                        <li>500 Foll = 15K</li>
-                        <li>1000 Foll = 30K</li>
+                        <li>100 Foll = Rp 4.000</li>
+                        <li>200 Foll = Rp 8.000</li>
+                        <li>300 Foll = Rp 11.000</li>
+                        <li>400 Foll = Rp 13.000</li>
+                        <li>500 Foll = Rp 15.000</li>
+                        <li>1000 Foll = Rp 30.000</li>
                     </ul>
                     <div class="product-footer">
                         <span class="product-price">Mulai 4K</span>
@@ -851,19 +963,16 @@
                         <h3 class="product-title">Layanan Lainnya</h3>
                         <p class="product-description">Berbagai layanan digital lainnya</p>
                     </div>
-                    <ul class="product-features">
-                        <li>NOMOR KOSONG WA = 5K</li>
+                    <ul class="product-features">           <li>Nomor Kosong WA = 5K</li>
                         <li>Sewa WA = Hubungi Admin</li>
                         <li>Jasa Buat Website = 7K</li>
-                        <li>Jasa Buat Logo Qris = 2K</li>
-                        <li>Jasa Buat Logo PC = 3K</li>
-                        <li>SC Push Kontak = 5K</li>
+                        <li>SC Push Kontak = 5K</li>    <li>Jasa Buat Logo Qris = 2K</li>                                 <li>Jasa Buat Logo Pc = 2K</li>
                         <li>Murid Suntik All Sosmed = 10K</li>
                         <li>Murbug WA = 15K</li>
                         <li>APK QRIS No KTP = 3K</li>
                         <li>Jasa Buat Link Mediafire = 1K</li>
                         <li>Jasa Edit SC = 5K</li>
-                        <li>Jasa Up Dana Bisnis = 5K</li>
+                        <li>Bahan Up Dana Bisnis = 5K</li>
                     </ul>
                     <div class="product-footer">
                         <span class="product-price">Mulai 1K</span>
@@ -916,7 +1025,7 @@
     </audio>
 
     <script>
-        // Nomor WhatsApp owner (UPDATED)
+        // Nomor WhatsApp owner
         const ownerNumber = "6289677269810";
         
         // Fungsi untuk menampilkan section produk
@@ -924,6 +1033,9 @@
             document.querySelector('.welcome-section').style.display = 'none';
             document.getElementById('productsSection').style.display = 'block';
             window.scrollTo(0, 0);
+            
+            // Tambahkan efek scroll reveal
+            revealOnScroll();
         }
 
         // Fungsi untuk scroll ke atas
@@ -932,6 +1044,77 @@
                 top: 0,
                 behavior: 'smooth'
             });
+        }
+
+        // Fungsi untuk membuat particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                particle.style.background = `rgba(255, ${Math.random() * 100 + 87}, ${Math.random() * 100 + 34}, ${Math.random() * 0.5 + 0.3})`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Fungsi untuk efek reveal on scroll
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.product-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Fungsi untuk efek typewriter
+        function typeWriterEffect() {
+            const subtitle = document.querySelector('.welcome-subtitle');
+            const text = subtitle.textContent;
+            subtitle.textContent = '';
+            
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    subtitle.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+            setTimeout(type, 1000);
+        }
+
+        // Fungsi untuk loading screen
+        function hideLoadingScreen() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 2000);
         }
 
         // Fungsi untuk filter kategori
@@ -947,6 +1130,11 @@
             const backToTop = document.querySelector('.back-to-top');
             
             let selectedProduct = "";
+            
+            // Inisialisasi efek
+            createParticles();
+            typeWriterEffect();
+            hideLoadingScreen();
             
             // Mengatur musik untuk autoplay dan loop
             function setupMusic() {
@@ -971,7 +1159,7 @@
             // Panggil fungsi setup musik
             setupMusic();
             
-            // Filter kategori
+            // Filter kategori dengan efek
             categoryButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     categoryButtons.forEach(btn => btn.classList.remove('active'));
@@ -982,6 +1170,8 @@
                     productCards.forEach(card => {
                         if (category === 'all' || card.getAttribute('data-category') === category) {
                             card.style.display = 'flex';
+                            // Tambahkan efek muncul
+                            card.style.animation = 'cardAppear 0.5s ease forwards';
                         } else {
                             card.style.display = 'none';
                         }
@@ -1001,12 +1191,18 @@
                 });
             });
             
-            // Tombol pesan
+            // Tombol pesan dengan efek
             orderButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     selectedProduct = this.getAttribute('data-product');
                     productNameSpan.textContent = selectedProduct;
                     modal.style.display = 'flex';
+                    
+                    // Efek getar pada tombol
+                    this.style.animation = 'vibrate 0.3s linear';
+                    setTimeout(() => {
+                        this.style.animation = '';
+                    }, 300);
                 });
             });
             
@@ -1060,7 +1256,37 @@
                     backToTop.style.display = 'none';
                 }
             });
+
+            // Efek ketikan untuk welcome subtitle
+            setTimeout(() => {
+                const subtitle = document.querySelector('.welcome-subtitle');
+                const originalText = subtitle.textContent;
+                subtitle.textContent = '';
+                
+                let i = 0;
+                function typeWriter() {
+                    if (i < originalText.length) {
+                        subtitle.textContent += originalText.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 30);
+                    }
+                }
+                typeWriter();
+            }, 500);
         });
+
+        // Tambahkan keyframe untuk efek getar
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes vibrate {
+                0% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                50% { transform: translateX(5px); }
+                75% { transform: translateX(-5px); }
+                100% { transform: translateX(0); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
-                  </html>
+</html>
