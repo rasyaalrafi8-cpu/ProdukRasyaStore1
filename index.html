@@ -378,11 +378,45 @@
 
         .product-footer {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 10px;
             margin-top: 20px;
             position: relative;
             z-index: 1;
+        }
+
+        .product-footer .btn-row {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .product-footer .btn-row .btn-order {
+            flex: 2;
+        }
+
+        .product-footer .btn-row .btn-qris {
+            flex: 1;
+            padding: 10px 10px;
+            background: linear-gradient(135deg, #00a86b, #00c853);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 0.8rem;
+        }
+
+        .product-footer .btn-row .btn-qris:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 168, 107, 0.7);
         }
 
         .btn-order {
@@ -399,6 +433,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            justify-content: center;
         }
 
         .btn-order:hover {
@@ -547,14 +582,14 @@
                 align-items: center;
             }
             
-            .product-footer {
+            .product-footer .btn-row {
                 flex-direction: column;
-                gap: 15px;
             }
             
-            .btn-order {
+            .product-footer .btn-row .btn-order,
+            .product-footer .btn-row .btn-qris {
                 width: 100%;
-                justify-content: center;
+                flex: none;
             }
             
             .music-indicator {
@@ -598,7 +633,7 @@
         .product-card:nth-child(9) { animation-delay: 0.9s; }
         .product-card:nth-child(10) { animation-delay: 1.0s; }
         
-        /* Modal konfirmasi */
+        /* Modal konfirmasi WhatsApp */
         .modal {
             display: none;
             position: fixed;
@@ -660,6 +695,109 @@
         
         .modal-btn:hover {
             transform: scale(1.05);
+        }
+
+        /* Modal QRIS Payment */
+        .modal-qris {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-qris-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .modal-qris-content h3 {
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+        
+        .modal-qris-content p {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .modal-qris-content .qris-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #eee;
+        }
+        
+        .modal-qris-content .close-qris {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-qris-content .close-qris:hover {
+            color: #ff5722;
+            transform: rotate(90deg);
+        }
+        
+        .modal-qris-content .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+        
+        .modal-qris-content .btn-close-qris {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #ff5722, #ff9800);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        
+        .modal-qris-content .btn-close-qris:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+        }
+        
+        .modal-qris-content .btn-download-qris {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #00a86b, #00c853);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .modal-qris-content .btn-download-qris:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 168, 107, 0.4);
         }
 
         /* Back to top button */
@@ -732,6 +870,7 @@
             </div>
             <h1 class="welcome-title">Welcome Di Website Payment RasyaXD</h1>
             <p class="welcome-subtitle">
+                
             </p>
             <div class="welcome-buttons">
                 <button class="btn-welcome btn-primary" onclick="showProducts()">
@@ -750,7 +889,7 @@
     <section class="products-section" id="productsSection">
         <div class="container">
             <div class="section-title">
-                <h2> LAYANAN DIGITAL</h2>
+                <h2>PRODUK RASYA STORE  </h2>
                 <p>Layanan Terbaik dengan Harga Terjangkau</p>
                 <div class="fire-effect"></div>
             </div>
@@ -763,7 +902,7 @@
                 <button class="category-btn" data-category="lainnya">Layanan Lainnya</button>
             </nav>
 
-            <div class="products-grid">
+            <div class="products-grid" id="productsGrid">
                 <!-- Panel Bot WhatsApp -->
                 <div class="product-card" data-category="panel">
                     <div class="product-header">
@@ -780,10 +919,14 @@
                         <li>RAM UNLIMITED = 10K</li>
                     </ul>
                     <div class="product-footer">
-                        <span class="product-price">Mulai 4K</span>
-                        <button class="btn-order" data-product="Panel Bot WhatsApp">
-                            <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
-                        </button>
+                        <div class="btn-row">
+                            <button class="btn-order" data-product="Panel Bot WhatsApp">
+                                <i class="fab fa-whatsapp"></i> Pesan
+                            </button>
+                            <button class="btn-qris" onclick="openQRIS('Panel Bot WhatsApp')">
+                                <i class="fas fa-qrcode"></i> QRIS
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -802,10 +945,14 @@
                         <li>1000 Like = Rp 11.000</li>
                     </ul>
                     <div class="product-footer">
-                        <span class="product-price">Mulai 2K</span>
-                        <button class="btn-order" data-product="Likes Instagram">
-                            <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
-                        </button>
+                        <div class="btn-row">
+                            <button class="btn-order" data-product="Likes Instagram">
+                                <i class="fab fa-whatsapp"></i> Pesan
+                            </button>
+                            <button class="btn-qris" onclick="openQRIS('Likes Instagram')">
+                                <i class="fas fa-qrcode"></i> QRIS
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -823,10 +970,14 @@
                         <li>10000 View = Rp 11.000</li>
                     </ul>
                     <div class="product-footer">
-                        <span class="product-price">Mulai 2K</span>
-                        <button class="btn-order" data-product="Views Instagram">
-                            <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
-                        </button>
+                        <div class="btn-row">
+                            <button class="btn-order" data-product="Views Instagram">
+                                <i class="fab fa-whatsapp"></i> Pesan
+                            </button>
+                            <button class="btn-qris" onclick="openQRIS('Views Instagram')">
+                                <i class="fas fa-qrcode"></i> QRIS
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -845,10 +996,14 @@
                         <li>1000 Foll = Rp 25.000</li>
                     </ul>
                     <div class="product-footer">
-                        <span class="product-price">Mulai 3K</span>
-                        <button class="btn-order" data-product="Followers Instagram">
-                            <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
-                        </button>
+                        <div class="btn-row">
+                            <button class="btn-order" data-product="Followers Instagram">
+                                <i class="fab fa-whatsapp"></i> Pesan
+                            </button>
+                            <button class="btn-qris" onclick="openQRIS('Followers Instagram')">
+                                <i class="fas fa-qrcode"></i> QRIS
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -867,10 +1022,14 @@
                         <li>1000 Like = Rp 20.000</li>
                     </ul>
                     <div class="product-footer">
-                        <span class="product-price">Mulai 3K</span>
-                        <button class="btn-order" data-product="Likes TikTok">
-                            <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
-                        </button>
+                        <div class="btn-row">
+                            <button class="btn-order" data-product="Likes TikTok">
+                                <i class="fab fa-whatsapp"></i> Pesan
+                            </button>
+                            <button class="btn-qris" onclick="openQRIS('Likes TikTok')">
+                                <i class="fas fa-qrcode"></i> QRIS
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -888,10 +1047,14 @@
                         <li>100000 View = Rp 11.000</li>
                     </ul>
                     <div class="product-footer">
-                        <span class="product-price">Mulai 2K</span>
-                        <button class="btn-order" data-product="Views TikTok">
-                            <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
-                        </button>
+                        <div class="btn-row">
+                            <button class="btn-order" data-product="Views TikTok">
+                                <i class="fab fa-whatsapp"></i> Pesan
+                            </button>
+                            <button class="btn-qris" onclick="openQRIS('Views TikTok')">
+                                <i class="fas fa-qrcode"></i> QRIS
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -910,10 +1073,14 @@
                         <li>1000 Foll = Rp 30.000</li>
                     </ul>
                     <div class="product-footer">
-                        <span class="product-price">Mulai 4K</span>
-                        <button class="btn-order" data-product="Followers TikTok">
-                            <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
-                        </button>
+                        <div class="btn-row">
+                            <button class="btn-order" data-product="Followers TikTok">
+                                <i class="fab fa-whatsapp"></i> Pesan
+                            </button>
+                            <button class="btn-qris" onclick="openQRIS('Followers TikTok')">
+                                <i class="fas fa-qrcode"></i> QRIS
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -930,10 +1097,14 @@
                         <li>6 Hari = 10K</li>
                     </ul>
                     <div class="product-footer">
-                        <span class="product-price">Mulai 3K</span>
-                        <button class="btn-order" data-product="Sewa Bot Push Kontak">
-                            <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
-                        </button>
+                        <div class="btn-row">
+                            <button class="btn-order" data-product="Sewa Bot Push Kontak">
+                                <i class="fab fa-whatsapp"></i> Pesan
+                            </button>
+                            <button class="btn-qris" onclick="openQRIS('Sewa Bot Push Kontak')">
+                                <i class="fas fa-qrcode"></i> QRIS
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -950,10 +1121,14 @@
                         <li>6 Hari = 10K</li>
                     </ul>
                     <div class="product-footer">
-                        <span class="product-price">Mulai 3K</span>
-                        <button class="btn-order" data-product="Sewa Bot Jaga Grup">
-                            <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
-                        </button>
+                        <div class="btn-row">
+                            <button class="btn-order" data-product="Sewa Bot Jaga Grup">
+                                <i class="fab fa-whatsapp"></i> Pesan
+                            </button>
+                            <button class="btn-qris" onclick="openQRIS('Sewa Bot Jaga Grup')">
+                                <i class="fas fa-qrcode"></i> QRIS
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -963,7 +1138,8 @@
                         <h3 class="product-title">Layanan Lainnya</h3>
                         <p class="product-description">Berbagai layanan digital lainnya</p>
                     </div>
-                    <ul class="product-features">           <li>Nomor Kosong WA = 5K</li>
+                    <ul class="product-features">
+                        <li>Nomor Kosong WA = 5K</li>
                         <li>Nomor Kosong Telegram = 6K</li>
                         <li>Job Bikin Akun Gmail = Hubungi Admin</li>
                         <li>Jasa Buat Website = 5K</li>
@@ -976,10 +1152,14 @@
                         <li>Jasa Up Dana Bisnis = 5K</li>
                     </ul>
                     <div class="product-footer">
-                        <span class="product-price">Mulai 1K</span>
-                        <button class="btn-order" data-product="Layanan Lainnya">
-                            <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
-                        </button>
+                        <div class="btn-row">
+                            <button class="btn-order" data-product="Layanan Lainnya">
+                                <i class="fab fa-whatsapp"></i> Pesan
+                            </button>
+                            <button class="btn-qris" onclick="openQRIS('Layanan Lainnya')">
+                                <i class="fas fa-qrcode"></i> QRIS
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1006,15 +1186,33 @@
         </div>
     </section>
 
-    <!-- Modal Konfirmasi -->
+    <!-- Modal Konfirmasi WhatsApp -->
     <div class="modal" id="confirmationModal">
         <div class="modal-content">
             <h3>Konfirmasi Pesanan</h3>
             <p>Anda akan memesan: <span id="productName"></span></p>
-            <p>Setelah mengkonfirmasi, Anda akan diarahkan ke WhatsApp untuk melanjutkan pemesanan dan mendapatkan instruksi pembayaran.</p>
+            <p>Setelah mengkonfirmasi, Anda akan diarahkan ke WhatsApp untuk melanjutkan pemesanan.</p>
             <div class="modal-buttons">
                 <button class="modal-btn modal-cancel" id="cancelOrder">Batal</button>
                 <button class="modal-btn modal-confirm" id="confirmOrder">Lanjutkan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal QRIS Payment -->
+    <div class="modal-qris" id="qrisModal">
+        <div class="modal-qris-content">
+            <span class="close-qris" onclick="closeQRIS()">&times;</span>
+            <h3><i class="fas fa-qrcode" style="color:#00a86b;"></i> Pembayaran QRIS</h3>
+            <p>Scan QR Code di bawah ini untuk melakukan pembayaran</p>
+            <p><strong>Produk: <span id="qrisProduct"></span></strong></p>
+            <img src="https://files.catbox.moe/1lmmwm.jpg" alt="QRIS Payment" class="qris-image" id="qrisImage">
+            <p style="font-size:0.9rem; color:#666;">Gunakan aplikasi mobile banking atau e-wallet kesayangan Anda</p>
+            <div class="btn-group">
+                <button class="btn-download-qris" onclick="downloadQRIS()">
+                    <i class="fas fa-download"></i> Download QRIS
+                </button>
+                <button class="btn-close-qris" onclick="closeQRIS()">Tutup</button>
             </div>
         </div>
     </div>
@@ -1056,7 +1254,6 @@
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 
-                // Random properties
                 const size = Math.random() * 10 + 5;
                 const left = Math.random() * 100;
                 const animationDuration = Math.random() * 20 + 10;
@@ -1118,6 +1315,28 @@
             }, 2000);
         }
 
+        // Fungsi untuk membuka modal QRIS
+        function openQRIS(productName) {
+            document.getElementById('qrisProduct').textContent = productName;
+            document.getElementById('qrisModal').style.display = 'flex';
+        }
+
+        // Fungsi untuk menutup modal QRIS
+        function closeQRIS() {
+            document.getElementById('qrisModal').style.display = 'none';
+        }
+
+        // Fungsi untuk download QRIS
+        function downloadQRIS() {
+            const imageUrl = document.getElementById('qrisImage').src;
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = 'QRIS_RasyaXD.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
         // Fungsi untuk filter kategori
         document.addEventListener('DOMContentLoaded', function() {
             const categoryButtons = document.querySelectorAll('.category-btn');
@@ -1171,7 +1390,6 @@
                     productCards.forEach(card => {
                         if (category === 'all' || card.getAttribute('data-category') === category) {
                             card.style.display = 'flex';
-                            // Tambahkan efek muncul
                             card.style.animation = 'cardAppear 0.5s ease forwards';
                         } else {
                             card.style.display = 'none';
@@ -1199,7 +1417,6 @@
                     productNameSpan.textContent = selectedProduct;
                     modal.style.display = 'flex';
                     
-                    // Efek getar pada tombol
                     this.style.animation = 'vibrate 0.3s linear';
                     setTimeout(() => {
                         this.style.animation = '';
@@ -1225,6 +1442,9 @@
             window.addEventListener('click', function(event) {
                 if (event.target === modal) {
                     modal.style.display = 'none';
+                }
+                if (event.target === document.getElementById('qrisModal')) {
+                    closeQRIS();
                 }
             });
             
